@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fitness Tracker</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body{
+        margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+      }
+
+      .btn {
+        font-size: 21px;
+        padding: 10px 25px;
+        background-color: palegreen;
+      }
+
+      .center {
+        margin: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .center button {
+        padding: 10px 25px;
+        border-radius: 9px;
+        background-color: darkcyan;
+        color: white;
+        font-size: 17px;
+        font-family: monospace;
+      }
+
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      .center h3 input[type="number"] {
+        padding: 10px;
+        font-size: 16px;
+        width: 100px;
+        border-radius: 7px;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: whitesmoke;
+      }
+
+      tr:first-child {
+        background: black;
+        color: white;
+      }
+
+      .buttons {
+        display: flex;
+        margin: 20px;
+      }
+
+      .buttons .btn{
+        background-color: bisque;
+        margin: 10px 10px;
+      }
+
+      .ans{
+        margin: 10px;
+      }
+
+      @media (max-width:1200px) {
+        .buttons{
+          flex-direction: column;
+        }
+        .bodyfat .images{
+          flex-direction: column;
+        }
+        .center h3 input[type="number"]{
+          width: 50px;
+        }
+      }
+
+      .buttons .btn:hover{
+        color: red;
+    font-size: 35px;
+    background-color: black;
+      }
+
+      #start:hover{
+        margin-bottom: 30px;
+        background-color: white;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .bodyfat .images{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .bodyfat .images img{
+        width: 80%;
+        margin: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="start" class="btn" onclick="showButtons()">Start</button>
+    
+    <div class="buttons hidden">
+      <button id="bmi" class="btn" onclick="showDiv(0)">BMI</button>
+      <button id="calory" class="btn" onclick="showDiv(1)">Calory Tracker</button>
+      <button id="protein" class="btn" onclick="showDiv(2)">Protein Calculator</button>
+      <button id="carbohydrates" class="btn" onclick="showDiv(3)">Carbohydrates Calculator</button>
+      <button id="fat" class="btn" onclick="showDiv(4)">Fat Calculator</button>
+      <button id="workout" class="btn" onclick="showDiv(5)">Workout</button>
+      <button id="bodyfat" class="btn" onclick="showDiv(6)">Body Fat Percentage</button>
+    </div>
+    
+    <main>
+      <div class="bmi center hidden">
+        <h1>Body Mass Index Calculator</h1>
+        <br /><br />
+        <h3>Enter your Height (in cm): <input type="number" id="height" /></h3>
+        <br />
+        <h3>Enter your weight (in kg): <input type="number" id="weight" /></h3>
+        <br />
+        <button id="calculateBmi" onclick="calculateBmi()">Calculate</button>
+        <br /><br />
+      </div>
+
+      <div class="calory center hidden">
+        <h1>Calory calculator</h1>
+        <br /><br />
+        <h3>Enter your weight (in kg): <input type="number" id="weight" /></h3>
+        <br />
+        <button id="calculateCalory" onclick="calculateCalory()">Calculate</button>
+        <div class="ans"></div>
+        <table class="hidden">
+          <tr>
+            <th>Activities (1 hr)</th>
+            <th>Calories Burned</th>
+          </tr>
+          <tr>
+            <td>Sitting</td>
+            <td>65 cal</td>
+          </tr>
+          <tr>
+            <td>Walking</td>
+            <td>210 cal</td>
+          </tr>
+          <tr>
+            <td>Running</td>
+            <td>596 cal</td>
+          </tr>
+          <tr>
+            <td>Weight Training</td>
+            <td>220 cal</td>
+          </tr>
+          <tr>
+            <td>Cricket</td>
+            <td>272 cal</td>
+          </tr>
+          <tr>
+            <td>Foot Ball</td>
+            <td>670 cal</td>
+          </tr>
+          <tr>
+            <td>Skipping</td>
+            <td>744 cal</td>
+          </tr>
+          <tr>
+            <td>Badminton</td>
+            <td>350 cal</td>
+          </tr>
+        </table>
+        <br /><br />
+      </div>
+
+      <div class="protein center hidden">
+        <h1>Protein Calculator</h1>
+        <br /><br />
+        <h3>Enter your weight (in kg): <input type="number" id="weight" /></h3>
+        <br />
+        <button id="calculateProtein" onclick="calculateProtein()">Calculate</button>
+        <br /><br />
+      </div>
+
+      <div class="carbohydrates center hidden">
+        <h1>Carbohydrates Calculator</h1>
+        <br /><br />
+        <h3>Enter your weight (in kg): <input type="number" id="weight" /></h3>
+        <br />
+        <button id="calculateCarbohydrates" onclick="calculateCarbohydrates()">Calculate</button>
+        <br /><br />
+      </div>
+
+      <div class="fat center hidden">
+        <h1>Fat Calculator</h1>
+        <br /><br />
+        <h3>Enter your weight (in kg): <input type="number" id="weight" /></h3>
+        <br />
+        <button id="calculatefat" onclick="calculatefat()">Calculate</button>
+        <br /><br />
+      </div>
+
+      <div class="diet center hidden">
+        <h1>Gym Workout</h1>
+        <br /><br />
+        <table>
+          <tr>
+            <th>Shoulder</th>
+            <th>Lat</th>
+            <th>Chest</th>
+            <th>Leg</th>
+            <th>Biceps</th>
+            <th>Triceps</th>
+            <th>Forearms</th>
+            <th>Traps</th>
+            <th>Calfs</th>
+          </tr>
+          <tr>
+            <td>Barbell standing press</td>
+            <td>Widearm reverse pulldown</td>
+            <td>Inclined bench press</td>
+            <td>Front squat</td>
+            <td>Barbell curl</td>
+            <td>Diamond pushups</td>
+            <td>Forearm flexor pushups</td>
+            <td>Barbell shrug</td>
+            <td>Seated calf raise</td>
+          </tr>
+          <tr>
+            <td>Seated Dumbell press</td>
+            <td>Underhand lat pulldown</td>
+            <td>Flat bench press</td>
+            <td>Barbell Squat</td>
+            <td>Cable curl</td>
+            <td>Triceps kich back</td>
+            <td>Forearms extensor pushups</td>
+            <td>Farmer's walk</td>
+            <td>Elevated calf raise</td>
+          </tr>
+          <tr>
+            <td>Arnold press</td>
+            <td>Wide grip pulldown</td>
+            <td>Decline bench press</td>
+            <td>Deadlift</td>
+            <td>Chin up</td>
+            <td>Triceps dips</td>
+            <td>Reverse curl</td>
+            <td>Kneeling dumbell shrug</td>
+            <td>skipping</td>
+          </tr>
+          <tr>
+            <td>Lateral raise</td>
+            <td>Widearm reverse pulldown</td>
+            <td>Cable crossover</td>
+            <td>Sumo squat</td>
+            <td>Hammer curl</td>
+            <td>Rope pushdowns</td>
+            <td>Classic wrist curl</td>
+            <td>Backhand shrug</td>
+            <td>Single leg calf raise</td>
+          </tr>
+          <tr>
+            <td>Upright row</td>
+            <td>Weighted pullups</td>
+            <td>Dumbell flys</td>
+            <td>Extension</td>
+            <td>Inclined curl</td>
+            <td>Bar pushdowns</td>
+            <td>Extensor wrist curl</td>
+            <td>Power pushaway</td>
+            <td>Bent knee calf raise</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="bodyfat center hidden">
+        <div class="images">
+          <img src="./male.jpeg" alt="Male Image">
+          <img src="./female.jpeg" alt="Female Image">
+        </div>
+        <h3>Enter your Current percentage: <input type="number" id="cp" /></h3>
+        <br />
+        <h3>Enter your Targeted percentage: <input type="number" id="tp" /></h3>
+        <br />
+        <h3>Enter your weight (in kg): <input type="number" id="weight" /></h3>
+        <br />
+        <button id="calculatefat" onclick="calculateBodyFat()">Calculate</button>
+      </div>
+    </main>
+
+    <script>
+      let startbtn = document.getElementById("start");
+      let buttons = document.querySelector(".buttons");
+      let divs = document.querySelectorAll("main .center");
+
+      function showDiv(id) {
+        // To Show Div
+        divs.forEach((element) => {
+          element.classList.add("hidden");
+        });
+        document.querySelector(".calory table").classList.add("hidden");
+        divs[id].classList.remove("hidden");
+        //To remove previous solution
+        removeTemp();
+        //To clear Text Box
+        let weight = document.querySelectorAll("#weight");
+        let height = document.querySelector("#height");
+        height.value = "";
+        weight.forEach((element) => {
+          element.value = "";
+        });
+      }
+      
+      function showButtons(){
+        buttons.classList.remove("hidden");
+        startbtn.classList.add("hidden");
+      }
+
+      function removeTemp() {
+        let temp = document.querySelectorAll(".temp");
+        temp.forEach((element) => {
+          element.parentNode.removeChild(element);
+        });
+      }
+
+      function calculateBmi(){
+        removeTemp();
+        const weight = document.querySelector(".bmi #weight").value;
+        const height = document.querySelector(".bmi #height").value / 100;
+        if (weight == "" || height == "") {
+          alert("Please enter the values!");
+        } else {
+          let bmi = (weight / (height * height)).toFixed(2);
+          let title = document.createElement("h2");
+          let line1 = document.createElement("h3");
+          let line2 = document.createElement("h3");
+          let line3 = document.createElement("h3");
+          line1.style.color = "blue";
+          line2.style.color = "blue";
+          line3.style.color = "blue";
+          title.className = "temp";
+          line1.className = "temp";
+          line2.className = "temp";
+          line3.className = "temp";
+          title.textContent = "Your body mass index is  " + bmi;
+          if (bmi < 18.5) {
+            let calories = (weight * 2.2 * 14 + 500).toFixed(2);
+            line1.textContent = "You are In Under Weight";
+            line2.textContent = "If you want to gain half kg/week";
+            line3.textContent =
+              "You should consume minimum " + calories + " calories every day";
+          } else if (18.5 <= bmi && bmi <= 24.9) {
+            line1.textContent = "You are in a healthy weight";
+            line2.textContent = "Maintain the weight";
+          } else {
+            let calories = (weight * 2.2 * 14 - 500).toFixed(2);
+            line1.textContent = "You are in over weight";
+            line2.textContent = "If you want to loose half kg/week";
+            line3.textContent =
+              "You should consume maximum " + calories + " calories every day";
+          }
+          divs[0].append(title, line1, line2, line3);
+        }
+      }
+
+      function calculateCalory(){
+        removeTemp();
+        let ans = document.querySelector(".calory .ans");
+        console.log(ans);
+        const weight = document.querySelector(".calory #weight").value;
+        let calories = (weight * 2.2 * 14).toFixed(2);
+        let title = document.createElement("h2");
+        title.className = "temp";
+        title.style.color = "blue";
+        title.textContent = "Your maintainance calory is " + calories;
+        ans.appendChild(title);
+        document.querySelector(".calory table").classList.remove("hidden");
+      }
+
+      function calculateProtein(){
+        removeTemp();
+        const weight = document.querySelector(".protein #weight").value;
+        let protein = (weight * 0.9).toFixed(2);
+        let title = document.createElement("h2");
+        title.className = "temp";
+        title.style.color = "blue";
+        title.textContent =
+        "You should take " + protein + "grams of protein per day";
+        let t1 = document.createElement("p");
+        let t2 = document.createElement("p");
+        t1.className = "temp";
+        t2.className = "temp";
+        t1.textContent = "Some of protein rich foods are: ";
+        t2.textContent = "Egg white , Soya chunks , Paneer , Whey protein , Fish , Chicken , Rajma , Chickpeas , Cheese";
+        t2.style.fontSize = "25px";
+        t1.style.fontWeight = "800";
+        t1.style.fontSize = "24px"
+        t1.style.margin = "22px 0px"
+        t1.style.color = "black";
+        divs[2].append(title,t1,t2);
+      }
+
+      function calculateCarbohydrates(){
+        removeTemp();
+        const weight = document.querySelector(".carbohydrates #weight").value;
+        let calo = weight * 2.2 * 14;
+        let d = (calo / 2.2).toFixed(0);
+        let title = document.createElement("h2");
+        title.className = "temp";
+        title.style.color = "blue";
+        title.textContent =
+          "You should take " + d + " calories of carbohydrates Minimum per day";
+          let t1 = document.createElement("p");
+        let t2 = document.createElement("p");
+        t1.className = "temp";
+        t2.className = "temp";
+        t1.textContent = "Some of Carbohydrates rich foods are: ";
+        t2.textContent = "Potato , Oats , Chapatti , White rice , Idly , Dosa , Banana , Bread , Nuts";
+        t2.style.fontSize = "25px";
+        t1.style.fontWeight = "800";
+        t1.style.fontSize = "24px"
+        t1.style.margin = "22px 0px"
+        t1.style.color = "black";
+        divs[3].append(title,t1,t2);
+      }
+
+      function calculatefat(){
+        removeTemp();
+        const weight = document.querySelector(".fat #weight").value;
+        let calo = weight * 2.2 * 14;
+        let e = ((calo * 1) / 4 / 9).toFixed(2);
+        let title = document.createElement("h2");
+        title.className = "temp";
+        title.style.color = "blue";
+        title.textContent = "You should take " + e + " gms of fat per day";
+        let t1 = document.createElement("p");
+        let t2 = document.createElement("p");
+        t1.className = "temp";
+        t2.className = "temp";
+        t1.textContent = "Some of fat rich foods are: ";
+        t2.textContent = "Olive oil , Peanut butter , Milk , Egg yolk , Avocado , Cheese , Dark chocolate , Butter , Yogurt";
+        t2.style.fontSize = "25px";
+        t1.style.fontWeight = "800";
+        t1.style.fontSize = "24px"
+        t1.style.margin = "22px 0px"
+        t1.style.color = "black";
+        divs[4].append(title,t1,t2);
+      }
+
+      function calculateBodyFat(){
+        removeTemp();
+        const weight = document.querySelector(".bodyfat #weight").value;
+        const cp = document.querySelector(".bodyfat #cp").value;
+        const tp = document.querySelector(".bodyfat #tp").value;
+        let title = document.createElement("h1");
+        title.className = "temp";
+        if(cp<tp){
+          title.style.color = "green";
+          let res = ((tp-cp)/100)*weight;
+          title.textContent = "You have to Gain "+res+" kg (Approximate value)";
+        }else{
+          title.style.color = "red";
+          let res = ((cp-tp)/100)*weight;
+          title.textContent = "You have to loss "+res+" kg (Approximate value)";
+          
+        }
+        divs[6].appendChild(title);
+      }
+    </script>
+  </body>
+</html>
