@@ -3,21 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fitness Tracker</title>
+    <title>Fit Run</title>
     <style>
       * {
         margin: 0;
         padding: 0;
       }
 
-      body{
+      body {
         margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
       }
 
       .btn {
@@ -81,34 +81,34 @@
         margin: 20px;
       }
 
-      .buttons .btn{
+      .buttons .btn {
         background-color: bisque;
         margin: 10px 10px;
       }
 
-      .ans{
+      .ans {
         margin: 10px;
       }
 
-      @media (max-width:1200px) {
-        .buttons{
+      @media (max-width: 1200px) {
+        .buttons {
           flex-direction: column;
         }
-        .bodyfat .images{
+        .bodyfat .images {
           flex-direction: column;
         }
-        .center h3 input[type="number"]{
+        .center h3 input[type="number"] {
           width: 50px;
         }
       }
 
-      .buttons .btn:hover{
+      .buttons .btn:hover {
         color: red;
-    font-size: 35px;
-    background-color: black;
+        font-size: 35px;
+        background-color: black;
       }
 
-      #start:hover{
+      #start:hover {
         margin-bottom: 30px;
         background-color: white;
       }
@@ -117,31 +117,59 @@
         display: none;
       }
 
-      .bodyfat .images{
+      .bodyfat .images {
         display: flex;
         width: 100%;
         justify-content: center;
       }
 
-      .bodyfat .images img{
+      .bodyfat .images img {
         width: 80%;
         margin: 15px;
+      }
+      #close{
+        position: absolute;
+        color: black;
+        text-shadow: 3px 3px 5px black;
+        top: 15px;
+        left: 15px;
+        font-size: 50px;
+        font-weight: 600;
+        user-select: none;
+        cursor: auto;
+        transition: 0.3s ease-in-out;
+        padding: 20px;
+      }
+      #close:hover{
+        color: red;
+        transform: translateY(-15px);
       }
     </style>
   </head>
   <body>
+
+    <a id="close" class="hidden"  onclick="showButtons()">&times;</a>
+
     <button id="start" class="btn" onclick="showButtons()">Start</button>
-    
+
     <div class="buttons hidden">
       <button id="bmi" class="btn" onclick="showDiv(0)">BMI</button>
-      <button id="calory" class="btn" onclick="showDiv(1)">Calory Tracker</button>
-      <button id="protein" class="btn" onclick="showDiv(2)">Protein Calculator</button>
-      <button id="carbohydrates" class="btn" onclick="showDiv(3)">Carbohydrates Calculator</button>
+      <button id="calory" class="btn" onclick="showDiv(1)">
+        Calory Tracker
+      </button>
+      <button id="protein" class="btn" onclick="showDiv(2)">
+        Protein Calculator
+      </button>
+      <button id="carbohydrates" class="btn" onclick="showDiv(3)">
+        Carbohydrates Calculator
+      </button>
       <button id="fat" class="btn" onclick="showDiv(4)">Fat Calculator</button>
       <button id="workout" class="btn" onclick="showDiv(5)">Workout</button>
-      <button id="bodyfat" class="btn" onclick="showDiv(6)">Body Fat Percentage</button>
+      <button id="bodyfat" class="btn" onclick="showDiv(6)">
+        Body Fat Percentage
+      </button>
     </div>
-    
+
     <main>
       <div class="bmi center hidden">
         <h1>Body Mass Index Calculator</h1>
@@ -159,7 +187,9 @@
         <br /><br />
         <h3>Enter your weight (in kg): <input type="number" id="weight" /></h3>
         <br />
-        <button id="calculateCalory" onclick="calculateCalory()">Calculate</button>
+        <button id="calculateCalory" onclick="calculateCalory()">
+          Calculate
+        </button>
         <div class="ans"></div>
         <table class="hidden">
           <tr>
@@ -207,7 +237,9 @@
         <br /><br />
         <h3>Enter your weight (in kg): <input type="number" id="weight" /></h3>
         <br />
-        <button id="calculateProtein" onclick="calculateProtein()">Calculate</button>
+        <button id="calculateProtein" onclick="calculateProtein()">
+          Calculate
+        </button>
         <br /><br />
       </div>
 
@@ -216,7 +248,9 @@
         <br /><br />
         <h3>Enter your weight (in kg): <input type="number" id="weight" /></h3>
         <br />
-        <button id="calculateCarbohydrates" onclick="calculateCarbohydrates()">Calculate</button>
+        <button id="calculateCarbohydrates" onclick="calculateCarbohydrates()">
+          Calculate
+        </button>
         <br /><br />
       </div>
 
@@ -304,8 +338,8 @@
 
       <div class="bodyfat center hidden">
         <div class="images">
-          <img src="./male.jpeg" alt="Male Image">
-          <img src="./female.jpeg" alt="Female Image">
+          <img src="./male.jpeg" alt="Male Image" />
+          <img src="./female.jpeg" alt="Female Image" />
         </div>
         <h3>Enter your Current percentage: <input type="number" id="cp" /></h3>
         <br />
@@ -313,24 +347,33 @@
         <br />
         <h3>Enter your weight (in kg): <input type="number" id="weight" /></h3>
         <br />
-        <button id="calculatefat" onclick="calculateBodyFat()">Calculate</button>
+        <button id="calculatefat" onclick="calculateBodyFat()">
+          Calculate
+        </button>
       </div>
     </main>
 
     <script>
       let startbtn = document.getElementById("start");
-      let buttons = document.querySelector(".buttons");
+      let buttonsDiv = document.querySelector(".buttons");
       let divs = document.querySelectorAll("main .center");
+      let closeBtn = document.getElementById("close");
 
       function showDiv(id) {
-        // To Show Div
+        buttonsDiv.classList.add("hidden");
+        document.querySelector(".calory table").classList.add("hidden");
+        divs[id].classList.remove("hidden");
+        closeBtn.classList.remove("hidden");
+      }
+      
+      function showButtons() {
+        closeBtn.classList.add("hidden");
         divs.forEach((element) => {
           element.classList.add("hidden");
         });
-        document.querySelector(".calory table").classList.add("hidden");
-        divs[id].classList.remove("hidden");
-        //To remove previous solution
         removeTemp();
+        buttonsDiv.classList.remove("hidden");
+        startbtn.classList.add("hidden");
         //To clear Text Box
         let weight = document.querySelectorAll("#weight");
         let height = document.querySelector("#height");
@@ -338,11 +381,6 @@
         weight.forEach((element) => {
           element.value = "";
         });
-      }
-      
-      function showButtons(){
-        buttons.classList.remove("hidden");
-        startbtn.classList.add("hidden");
       }
 
       function removeTemp() {
@@ -352,7 +390,7 @@
         });
       }
 
-      function calculateBmi(){
+      function calculateBmi() {
         removeTemp();
         const weight = document.querySelector(".bmi #weight").value;
         const height = document.querySelector(".bmi #height").value / 100;
@@ -392,7 +430,7 @@
         }
       }
 
-      function calculateCalory(){
+      function calculateCalory() {
         removeTemp();
         let ans = document.querySelector(".calory .ans");
         console.log(ans);
@@ -406,7 +444,7 @@
         document.querySelector(".calory table").classList.remove("hidden");
       }
 
-      function calculateProtein(){
+      function calculateProtein() {
         removeTemp();
         const weight = document.querySelector(".protein #weight").value;
         let protein = (weight * 0.9).toFixed(2);
@@ -414,22 +452,23 @@
         title.className = "temp";
         title.style.color = "blue";
         title.textContent =
-        "You should take " + protein + "grams of protein per day";
+          "You should take " + protein + "grams of protein per day";
         let t1 = document.createElement("p");
         let t2 = document.createElement("p");
         t1.className = "temp";
         t2.className = "temp";
         t1.textContent = "Some of protein rich foods are: ";
-        t2.textContent = "Egg white , Soya chunks , Paneer , Whey protein , Fish , Chicken , Rajma , Chickpeas , Cheese";
+        t2.textContent =
+          "Egg white , Soya chunks , Paneer , Whey protein , Fish , Chicken , Rajma , Chickpeas , Cheese";
         t2.style.fontSize = "25px";
         t1.style.fontWeight = "800";
-        t1.style.fontSize = "24px"
-        t1.style.margin = "22px 0px"
+        t1.style.fontSize = "24px";
+        t1.style.margin = "22px 0px";
         t1.style.color = "black";
-        divs[2].append(title,t1,t2);
+        divs[2].append(title, t1, t2);
       }
 
-      function calculateCarbohydrates(){
+      function calculateCarbohydrates() {
         removeTemp();
         const weight = document.querySelector(".carbohydrates #weight").value;
         let calo = weight * 2.2 * 14;
@@ -439,21 +478,22 @@
         title.style.color = "blue";
         title.textContent =
           "You should take " + d + " calories of carbohydrates Minimum per day";
-          let t1 = document.createElement("p");
+        let t1 = document.createElement("p");
         let t2 = document.createElement("p");
         t1.className = "temp";
         t2.className = "temp";
         t1.textContent = "Some of Carbohydrates rich foods are: ";
-        t2.textContent = "Potato , Oats , Chapatti , White rice , Idly , Dosa , Banana , Bread , Nuts";
+        t2.textContent =
+          "Potato , Oats , Chapatti , White rice , Idly , Dosa , Banana , Bread , Nuts";
         t2.style.fontSize = "25px";
         t1.style.fontWeight = "800";
-        t1.style.fontSize = "24px"
-        t1.style.margin = "22px 0px"
+        t1.style.fontSize = "24px";
+        t1.style.margin = "22px 0px";
         t1.style.color = "black";
-        divs[3].append(title,t1,t2);
+        divs[3].append(title, t1, t2);
       }
 
-      function calculatefat(){
+      function calculatefat() {
         removeTemp();
         const weight = document.querySelector(".fat #weight").value;
         let calo = weight * 2.2 * 14;
@@ -467,31 +507,33 @@
         t1.className = "temp";
         t2.className = "temp";
         t1.textContent = "Some of fat rich foods are: ";
-        t2.textContent = "Olive oil , Peanut butter , Milk , Egg yolk , Avocado , Cheese , Dark chocolate , Butter , Yogurt";
+        t2.textContent =
+          "Olive oil , Peanut butter , Milk , Egg yolk , Avocado , Cheese , Dark chocolate , Butter , Yogurt";
         t2.style.fontSize = "25px";
         t1.style.fontWeight = "800";
-        t1.style.fontSize = "24px"
-        t1.style.margin = "22px 0px"
+        t1.style.fontSize = "24px";
+        t1.style.margin = "22px 0px";
         t1.style.color = "black";
-        divs[4].append(title,t1,t2);
+        divs[4].append(title, t1, t2);
       }
 
-      function calculateBodyFat(){
+      function calculateBodyFat() {
         removeTemp();
         const weight = document.querySelector(".bodyfat #weight").value;
         const cp = document.querySelector(".bodyfat #cp").value;
         const tp = document.querySelector(".bodyfat #tp").value;
         let title = document.createElement("h1");
         title.className = "temp";
-        if(cp<tp){
+        if (cp < tp) {
           title.style.color = "green";
-          let res = ((tp-cp)/100)*weight;
-          title.textContent = "You have to Gain "+res+" kg (Approximate value)";
-        }else{
+          let res = ((tp - cp) / 100) * weight;
+          title.textContent =
+            "You have to Gain " + res + " kg (Approximate value)";
+        } else {
           title.style.color = "red";
-          let res = ((cp-tp)/100)*weight;
-          title.textContent = "You have to loss "+res+" kg (Approximate value)";
-          
+          let res = ((cp - tp) / 100) * weight;
+          title.textContent =
+            "You have to loss " + res + " kg (Approximate value)";
         }
         divs[6].appendChild(title);
       }
